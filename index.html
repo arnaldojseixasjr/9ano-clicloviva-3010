@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestão Financeira Corporativa | 9º Ano - Festa das Nações</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: {
+                            950: '#030712',
+                            900: '#0f172a',
+                            800: '#1e293b',
+                            700: '#334155',
+                            600: '#475569'
+                        },
+                        gold: {
+                            400: '#fbbf24',
+                            500: '#f59e0b',
+                            600: '#d97706',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-card {
+            background: rgba(30, 41, 59, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(245, 158, 11, 0.25);
+        }
+        .glass-card-gold {
+            background: rgba(245, 158, 11, 0.08);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(245, 158, 11, 0.4);
+        }
+        .glow-gold {
+            box-shadow: 0 0 25px -5px rgba(245, 158, 11, 0.35);
+        }
+        .glow-emerald {
+            box-shadow: 0 0 25px -5px rgba(16, 185, 129, 0.35);
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #f59e0b;
+        }
+    </style>
+</head>
+<body class="bg-navy-900 text-slate-100 font-sans min-h-screen selection:bg-gold-500 selection:text-navy-950">
+
+    <!-- Sticky Header & Live Classroom Timer -->
+    <nav class="fixed top-0 left-0 w-full z-50 bg-navy-950/90 backdrop-blur-md border-b border-gold-500/20 px-4 py-3">
+        <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-4">
+            <div class="flex items-center space-x-3">
+                <span class="bg-gradient-to-br from-gold-400 to-gold-600 text-navy-950 p-2.5 rounded-xl font-black text-xl shadow-lg">
+                    <i class="fa-solid fa-briefcase"></i>
+                </span>
+                <div>
+                    <h1 class="font-bold text-lg leading-tight text-white flex items-center gap-2">
+                        Ciclo VIVA <span class="text-xs bg-gold-500/20 text-gold-400 border border-gold-500/40 px-2 py-0.5 rounded-md font-extrabold">9º ANO - CFO</span>
+                    </h1>
+                    <p class="text-xs text-slate-400">Gestão Financeira Corporativa & Matriz de Risco</p>
+                </div>
+            </div>
+
+            <!-- Navigation Links -->
+            <div class="hidden lg:flex items-center space-x-1 text-xs font-semibold">
+                <a href="#custos-invisiveis" class="px-3 py-1.5 rounded-lg hover:bg-navy-800 text-slate-300 hover:text-gold-400 transition">1. Custos Invisíveis</a>
+                <a href="#ponto-equilibrio" class="px-3 py-1.5 rounded-lg hover:bg-navy-800 text-slate-300 hover:text-gold-400 transition">2. Lucro Meta</a>
+                <a href="#fluxo-caixa" class="px-3 py-1.5 rounded-lg hover:bg-navy-800 text-slate-300 hover:text-gold-400 transition">3. Projeção de Caixa</a>
+                <a href="#gestao-risco" class="px-3 py-1.5 rounded-lg hover:bg-navy-800 text-slate-300 hover:text-gold-400 transition">4. Matriz de Risco</a>
+                <a href="#desafio" class="px-3 py-1.5 rounded-lg hover:bg-navy-800 text-slate-300 hover:text-gold-400 transition">5. Auditoria CFO</a>
+                <a href="#quiz" class="px-3 py-1.5 rounded-lg hover:bg-navy-800 text-slate-300 hover:text-gold-400 transition">6. Quiz</a>
+            </div>
+
+            <!-- Timer Badge -->
+            <div class="flex items-center space-x-3">
+                <div class="bg-navy-800 border border-gold-500/30 px-3 py-1.5 rounded-xl flex items-center space-x-2 text-sm font-mono text-gold-400">
+                    <i class="fa-regular fa-clock animate-pulse"></i>
+                    <span id="timer-display">50:00</span>
+                </div>
+                <button id="timer-toggle-btn" onclick="toggleTimer()" class="text-xs bg-gold-500 hover:bg-gold-600 text-navy-950 font-bold px-3 py-1.5 rounded-lg transition shadow-md">
+                    <i class="fa-solid fa-play" id="timer-icon"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="pt-28 pb-16 px-4 relative overflow-hidden bg-gradient-to-b from-navy-950 via-navy-900 to-navy-900 border-b border-slate-800">
+        <div class="max-w-5xl mx-auto text-center relative z-10">
+            <span class="inline-block bg-gold-500/10 border border-gold-500/30 text-gold-400 font-semibold text-xs px-4 py-1.5 rounded-full uppercase tracking-widest mb-4">
+                <i class="fa-solid fa-user-tie mr-1"></i> Formação de Diretoria Financeira (CFO)
+            </span>
+            <h1 class="text-3xl md:text-5xl font-black text-white tracking-tight mb-4 leading-tight">
+                Gestão Financeira Corporativa: <br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-gold-400 via-amber-300 to-gold-500">Custos Invisíveis, Lucro Meta & Gestão de Riscos</span>
+            </h1>
+            <p class="text-slate-300 text-base md:text-lg max-w-3xl mx-auto mb-8 font-light leading-relaxed">
+                Domine os conceitos do CFO moderno: neutralize os custos invisíveis, projete o ponto de equilíbrio com meta de lucro, estruture o fluxo de caixa por horários e blinde a operação da <strong>Festa das Nações</strong> com uma Matriz de Contingência.
+            </p>
+
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="#custos-invisiveis" class="bg-gold-500 hover:bg-gold-600 text-navy-950 font-bold px-6 py-3.5 rounded-xl shadow-lg glow-gold transition flex items-center space-x-2">
+                    <span>Iniciar Auditoria de Custos</span>
+                    <i class="fa-solid fa-arrow-down"></i>
+                </a>
+                <a href="#desafio" class="bg-navy-800 hover:bg-navy-700 text-slate-100 border border-slate-700 font-semibold px-6 py-3.5 rounded-xl transition flex items-center space-x-2">
+                    <i class="fa-solid fa-calculator text-gold-400"></i>
+                    <span>Ir para o Desafio Prático CFO (15 min)</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- MODULE 1: INVISIBLE COSTS & TAXES -->
+    <section id="custos-invisiveis" class="py-16 px-4 max-w-6xl mx-auto scroll-mt-20">
+        <div class="mb-10 text-center md:text-left">
+            <span class="text-gold-500 font-bold text-sm tracking-wider uppercase"><i class="fa-solid fa-ghost mr-1"></i> Módulo 1 (Aula 01)</span>
+            <h2 class="text-2xl md:text-4xl font-extrabold text-white mt-1">Planejamento Tributário e Custos Invisíveis</h2>
+            <p class="text-slate-400 mt-2 max-w-2xl">Perdas silenciosas corroem a margem de lucro. Entenda taxas de maquininhas, desperdícios de insumos e quebras de estoque.</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            <!-- Theory Explanation -->
+            <div class="lg:col-span-5 space-y-4">
+                <div class="glass-card p-6 rounded-2xl">
+                    <h3 class="text-lg font-bold text-white mb-2"><i class="fa-solid fa-eye-slash text-gold-400 mr-2"></i> O Vazamento Invisível de Caixa</h3>
+                    <p class="text-xs text-slate-300 leading-relaxed mb-4">
+                        Muitos empreendedores calculam o custo apenas pelos ingredientes principais e entram em prejuízo porque esquecem de embutir os <strong>custos invisíveis e taxas compulsórias</strong>.
+                    </p>
+
+                    <div class="space-y-3 text-xs">
+                        <div class="bg-navy-950 p-3 rounded-xl border border-rose-500/30">
+                            <strong class="text-rose-400 text-xs block mb-1"><i class="fa-solid fa-credit-card mr-1"></i> 1. Taxas de Meios de Pagamento</strong>
+                            <p class="text-slate-400">Taxas de maquininhas de cartão/PIX intermediado (podem variar de 2% a 5% por venda).</p>
+                        </div>
+                        <div class="bg-navy-950 p-3 rounded-xl border border-amber-500/30">
+                            <strong class="text-amber-400 text-xs block mb-1"><i class="fa-solid fa-trash-can mr-1"></i> 2. Desperdício & Refugo de Insumos</strong>
+                            <p class="text-slate-400">Ingredientes queimados, embalagens rasgadas no transporte ou molhadas pela chuva.</p>
+                        </div>
+                        <div class="bg-navy-950 p-3 rounded-xl border border-gold-500/30">
+                            <strong class="text-gold-400 text-xs block mb-1"><i class="fa-solid fa-box-open mr-1"></i> 3. Descartáveis Secundários</strong>
+                            <p class="text-slate-400">Guardanapos, canudos, saquinhos de transporte e luvas descartáveis da equipe de produção.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Interactive Invisible Cost Calculator -->
+            <div class="lg:col-span-7 bg-navy-800 border border-slate-700 p-6 rounded-2xl shadow-2xl space-y-6">
+                <h3 class="text-lg font-bold text-white flex items-center justify-between border-b border-slate-700 pb-3">
+                    <span><i class="fa-solid fa-calculator text-gold-500 mr-2"></i> Calculadora de Custo Real Ajustado</span>
+                    <span class="text-xs bg-gold-500/10 text-gold-400 border border-gold-500/30 px-2.5 py-1 rounded-md">Simulador CFO</span>
+                </h3>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+                    <div>
+                        <label class="block font-semibold text-slate-300 mb-1">Custo Base do Insumo Directo (R$):</label>
+                        <input type="number" id="calc-base-cost" value="5.00" step="0.50" oninput="runInvisibleCostCalc()" class="w-full bg-navy-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono font-bold focus:outline-none focus:border-gold-500">
+                    </div>
+                    <div>
+                        <label class="block font-semibold text-slate-300 mb-1">Taxa de Maquininha / PIX (%):</label>
+                        <input type="number" id="calc-card-rate" value="3.5" step="0.5" oninput="runInvisibleCostCalc()" class="w-full bg-navy-950 border border-slate-700 rounded-xl px-3 py-2 text-rose-400 font-mono font-bold focus:outline-none focus:border-gold-500">
+                    </div>
+                    <div>
+                        <label class="block font-semibold text-slate-300 mb-1">Margem de Desperdício/Quebra (%):</label>
+                        <input type="number" id="calc-waste-rate" value="5.0" step="1.0" oninput="runInvisibleCostCalc()" class="w-full bg-navy-950 border border-slate-700 rounded-xl px-3 py-2 text-amber-400 font-mono font-bold focus:outline-none focus:border-gold-500">
+                    </div>
+                    <div>
+                        <label class="block font-semibold text-slate-300 mb-1">Custo de Descartáveis Extras (R$):</label>
+                        <input type="number" id="calc-extra-packaging" value="0.80" step="0.10" oninput="runInvisibleCostCalc()" class="w-full bg-navy-950 border border-slate-700 rounded-xl px-3 py-2 text-gold-400 font-mono font-bold focus:outline-none focus:border-gold-500">
+                    </div>
+                </div>
+
+                <!-- Live Results Box -->
+                <div class="bg-navy-950 p-5 rounded-xl border border-gold-500/40 space-y-3">
+                    <div class="grid grid-cols-3 gap-2 text-center font-mono text-xs">
+                        <div class="bg-navy-900 p-2.5 rounded-lg">
+                            <span class="text-[10px] text-slate-400 block">Custo Base Exibido</span>
+                            <strong id="disp-base-cost" class="text-slate-300 text-sm">R$ 5,00</strong>
+                        </div>
+                        <div class="bg-navy-900 p-2.5 rounded-lg">
+                            <span class="text-[10px] text-slate-400 block">Custos Invisíveis</span>
+                            <strong id="disp-invisible-val" class="text-rose-400 text-sm">+ R$ 1,23</strong>
+                        </div>
+                        <div class="bg-navy-900 p-2.5 rounded-lg border border-gold-500/40">
+                            <span class="text-[10px] text-gold-400 block">Custo Real Ajustado</span>
+                            <strong id="disp-real-cost" class="text-gold-400 text-base font-extrabold">R$ 6,23</strong>
+                        </div>
+                    </div>
+                    <p class="text-[11px] text-slate-400 italic text-center">
+                        <i class="fa-solid fa-lightbulb text-amber-400 mr-1"></i> Se você precificar usando apenas o Custo Base (R$ 5,00), estará perdendo R$ 1,23 por unidade vendida sem saber!
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MODULE 2: BREAK-EVEN & TARGET PROFIT -->
+    <section id="ponto-equilibrio" class="py-16 px-4 max-w-6xl mx-auto scroll-mt-20 border-t border-slate-800">
+        <div class="mb-10 text-center md:text-left">
+            <span class="text-gold-500 font-bold text-sm tracking-wider uppercase"><i class="fa-solid fa-bullseye mr-1"></i> Módulo 2 (Aula 02)</span>
+            <h2 class="text-2xl md:text-4xl font-extrabold text-white mt-1">Break-Even & Margem de Lucro Esperada</h2>
+            <p class="text-slate-400 mt-2 max-w-2xl">Não trabalhe apenas para empatar! Calcule quantas vendas são necessárias para cobrir o custo fixo E entregar o Lucro Meta desejado.</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            <!-- Theory & Formula -->
+            <div class="lg:col-span-5 space-y-4">
+                <div class="glass-card p-6 rounded-2xl space-y-4">
+                    <h3 class="text-lg font-bold text-white"><i class="fa-solid fa-chart-line text-gold-400 mr-2"></i> A Fórmula do Lucro Meta</h3>
+                    <p class="text-xs text-slate-300 leading-relaxed">
+                        O Ponto de Equilíbrio Tradicional calcula o volume para Lucro R$ 0. O <strong>Ponto de Equilíbrio com Lucro Meta</strong> adiciona o ganho pretendido no topo da equação.
+                    </p>
+
+                    <div class="bg-navy-950 p-4 rounded-xl border border-gold-500/30 text-center font-mono space-y-2">
+                        <p class="text-[11px] text-slate-400">Fórmula de Vendas para Lucro Meta:</p>
+                        <p class="text-xs font-bold text-gold-400">
+                            Meta (Unid.) = ( Custos Fixos + Lucro Meta ) / MC Ajustada
+                        </p>
+                        <p class="text-[10px] text-slate-500">Onde: MC Ajustada = Preço - Custo Variável Real</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Target Profit Simulator -->
+            <div class="lg:col-span-7 bg-navy-800 border border-slate-700 p-6 rounded-2xl shadow-2xl space-y-6">
+                <h3 class="text-lg font-bold text-white flex items-center justify-between border-b border-slate-700 pb-3">
+                    <span><i class="fa-solid fa-sliders text-gold-500 mr-2"></i> Simulador de Lucro Meta corporativo</span>
+                </h3>
+
+                <div class="space-y-4 text-xs">
+                    <div>
+                        <div class="flex justify-between font-bold mb-1">
+                            <label class="text-slate-300">Custos Fixos Totais (CF):</label>
+                            <span id="lbl-cf" class="text-gold-400 font-mono">R$ 300,00</span>
+                        </div>
+                        <input type="range" id="sld-cf" min="100" max="800" step="50" value="300" oninput="runTargetProfitCalc()" class="w-full h-2 bg-navy-950 rounded-lg appearance-none cursor-pointer accent-gold-500">
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between font-bold mb-1">
+                            <label class="text-slate-300">Preço de Venda Unitário (P):</label>
+                            <span id="lbl-price" class="text-emerald-400 font-mono">R$ 16,00</span>
+                        </div>
+                        <input type="range" id="sld-price" min="8" max="30" step="1" value="16" oninput="runTargetProfitCalc()" class="w-full h-2 bg-navy-950 rounded-lg appearance-none cursor-pointer accent-emerald-500">
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between font-bold mb-1">
+                            <label class="text-slate-300">Custo Variável Real por Unidade (CV):</label>
+                            <span id="lbl-cv" class="text-rose-400 font-mono">R$ 6,00</span>
+                        </div>
+                        <input type="range" id="sld-cv" min="2" max="15" step="0.5" value="6" oninput="runTargetProfitCalc()" class="w-full h-2 bg-navy-950 rounded-lg appearance-none cursor-pointer accent-rose-500">
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between font-bold mb-1">
+                            <label class="text-slate-300">Lucro Meta Desejado para a Sala (R$):</label>
+                            <span id="lbl-target-profit" class="text-gold-400 font-mono">R$ 400,00</span>
+                        </div>
+                        <input type="range" id="sld-target-profit" min="100" max="1000" step="50" value="400" oninput="runTargetProfitCalc()" class="w-full h-2 bg-navy-950 rounded-lg appearance-none cursor-pointer accent-gold-500">
+                    </div>
+                </div>
+
+                <!-- Simulation Output -->
+                <div class="bg-navy-950 p-5 rounded-xl border border-slate-700 grid grid-cols-3 gap-2 text-center font-mono text-xs">
+                    <div class="bg-navy-900 p-2.5 rounded-lg">
+                        <span class="text-[10px] text-slate-400 block">MC Unitária</span>
+                        <strong id="sim-mc-val" class="text-emerald-400 text-sm">R$ 10,00</strong>
+                    </div>
+                    <div class="bg-navy-900 p-2.5 rounded-lg border border-amber-500/30">
+                        <span class="text-[10px] text-amber-400 block">Zero a Zero (Zero Lucro)</span>
+                        <strong id="sim-be-units" class="text-amber-400 text-sm">30 unid.</strong>
+                    </div>
+                    <div class="bg-navy-900 p-2.5 rounded-lg border border-gold-500/40">
+                        <span class="text-[10px] text-gold-400 block">Para Atingir o Lucro Meta</span>
+                        <strong id="sim-target-units" class="text-gold-400 text-base font-black">70 unid.</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MODULE 3: EVENT DAY CASH FLOW TIMELINE -->
+    <section id="fluxo-caixa" class="py-16 px-4 max-w-6xl mx-auto scroll-mt-20 border-t border-slate-800">
+        <div class="mb-10 text-center md:text-left">
+            <span class="text-gold-500 font-bold text-sm tracking-wider uppercase"><i class="fa-solid fa-timeline mr-1"></i> Módulo 3 (Aula 03)</span>
+            <h2 class="text-2xl md:text-4xl font-extrabold text-white mt-1">Projeção de Fluxo de Caixa no Dia da Feira</h2>
+            <p class="text-slate-400 mt-2 max-w-2xl">O evento dura apenas 2 horas (10h às 12h). Mapeie o comportamento do caixa por faixas de horário críticas.</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            <!-- Timeline Cards -->
+            <div class="lg:col-span-5 space-y-3">
+                <div class="glass-card p-4 rounded-xl border-l-4 border-l-gold-500 space-y-1">
+                    <div class="flex justify-between items-center">
+                        <span class="font-bold text-white text-xs"><i class="fa-solid fa-door-open text-gold-400 mr-1"></i> 10h00 - 10h30 (Abertura)</span>
+                        <span class="text-[10px] bg-gold-500/20 text-gold-400 px-2 py-0.5 rounded">Fundo de Troco</span>
+                    </div>
+                    <p class="text-[11px] text-slate-300">Movimento inicial baixo. Foco em verificar troco no caixa e ligar maquininhas.</p>
+                </div>
+
+                <div class="glass-card p-4 rounded-xl border-l-4 border-l-emerald-500 space-y-1">
+                    <div class="flex justify-between items-center">
+                        <span class="font-bold text-white text-xs"><i class="fa-solid fa-fire text-emerald-400 mr-1"></i> 10h30 - 11h30 (Pico de Vendas)</span>
+                        <span class="text-[10px] bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded">Alta Arrecadação</span>
+                    </div>
+                    <p class="text-[11px] text-slate-300">Entrada massiva de público. Operação em capacidade máxima de atendimento e registros no livro caixa.</p>
+                </div>
+
+                <div class="glass-card p-4 rounded-xl border-l-4 border-l-amber-500 space-y-1">
+                    <div class="flex justify-between items-center">
+                        <span class="font-bold text-white text-xs"><i class="fa-solid fa-hourglass-end text-amber-400 mr-1"></i> 11h30 - 12h00 (Encerramento)</span>
+                        <span class="text-[10px] bg-amber-500/20 text-amber-400 px-2 py-0.5 rounded">Queima de Estoque</span>
+                    </div>
+                    <p class="text-[11px] text-slate-300">Ajuste fino de preços em caso de sobra de insumos e contagem final para fechamento e prestação de contas.</p>
+                </div>
+            </div>
+
+            <!-- Live Cash Flow Simulator Table -->
+            <div class="lg:col-span-7 bg-navy-800 border border-slate-700 p-6 rounded-2xl shadow-2xl space-y-4">
+                <h3 class="text-lg font-bold text-white flex items-center justify-between border-b border-slate-700 pb-3">
+                    <span><i class="fa-solid fa-book-journal-whills text-gold-500 mr-2"></i> Livro Caixa do Evento (Simulado)</span>
+                    <button onclick="addCorporateTransaction()" class="text-xs bg-gold-500 hover:bg-gold-600 text-navy-950 font-bold px-3 py-1.5 rounded-lg transition">
+                        <i class="fa-solid fa-plus mr-1"></i> Novo Lançamento
+                    </button>
+                </h3>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-xs border-collapse">
+                        <thead>
+                            <tr class="border-b border-slate-700 text-slate-400 font-mono">
+                                <th class="py-2 px-2">Horário</th>
+                                <th class="py-2 px-2">Histórico</th>
+                                <th class="py-2 px-2">Tipo</th>
+                                <th class="py-2 px-2 text-right">Valor</th>
+                            </tr>
+                        </thead>
+                        <tbody id="corp-cashflow-tbody" class="divide-y divide-slate-800 text-slate-300">
+                            <!-- Populated via JS -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="bg-navy-950 p-4 rounded-xl border border-slate-700 flex justify-between items-center text-xs font-mono">
+                    <span class="text-slate-400">Saldo Líquido em Caixa:</span>
+                    <span id="corp-cashflow-balance" class="text-base font-black text-emerald-400">R$ +520,00</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MODULE 4: RISK MANAGEMENT MATRIX -->
+    <section id="gestao-risco" class="py-16 px-4 max-w-6xl mx-auto scroll-mt-20 border-t border-slate-800">
+        <div class="mb-10 text-center md:text-left">
+            <span class="text-gold-500 font-bold text-sm tracking-wider uppercase"><i class="fa-solid fa-shield-virus mr-1"></i> Módulo 4 (Aula 04)</span>
+            <h2 class="text-2xl md:text-4xl font-extrabold text-white mt-1">Gestão de Riscos & Planos de Contingência</h2>
+            <p class="text-slate-400 mt-2 max-w-2xl">O que pode dar errado no dia e como reagir em segundos sem perder dinheiro?</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <!-- Scenario 1 -->
+            <div onclick="showContingency(1)" class="glass-card p-5 rounded-2xl cursor-pointer hover:border-gold-500 transition space-y-3 flex flex-col justify-between">
+                <div>
+                    <span class="text-xs bg-rose-500/20 text-rose-400 border border-rose-500/30 px-2 py-0.5 rounded font-mono font-bold">Risco 01</span>
+                    <h3 class="text-sm font-bold text-white mt-2"><i class="fa-solid fa-wifi text-rose-400 mr-1"></i> Maquininha / Wi-Fi Fora do Ar</h3>
+                    <p class="text-[11px] text-slate-400 mt-1">Sinal instável impede cobrança de cartões e PIX no meio do pico.</p>
+                </div>
+                <span class="text-[11px] text-gold-400 font-semibold inline-flex items-center gap-1">Ver Contingência <i class="fa-solid fa-chevron-right text-[9px]"></i></span>
+            </div>
+
+            <!-- Scenario 2 -->
+            <div onclick="showContingency(2)" class="glass-card p-5 rounded-2xl cursor-pointer hover:border-gold-500 transition space-y-3 flex flex-col justify-between">
+                <div>
+                    <span class="text-xs bg-amber-500/20 text-amber-400 border border-amber-500/30 px-2 py-0.5 rounded font-mono font-bold">Risco 02</span>
+                    <h3 class="text-sm font-bold text-white mt-2"><i class="fa-solid fa-box-open text-amber-400 mr-1"></i> Falta de Insumo no Pico (11h)</h3>
+                    <p class="text-[11px] text-slate-400 mt-1">Ingredientes principais acabam 1 hora antes do término do evento.</p>
+                </div>
+                <span class="text-[11px] text-gold-400 font-semibold inline-flex items-center gap-1">Ver Contingência <i class="fa-solid fa-chevron-right text-[9px]"></i></span>
+            </div>
+
+            <!-- Scenario 3 -->
+            <div onclick="showContingency(3)" class="glass-card p-5 rounded-2xl cursor-pointer hover:border-gold-500 transition space-y-3 flex flex-col justify-between">
+                <div>
+                    <span class="text-xs bg-gold-500/20 text-gold-400 border border-gold-500/30 px-2 py-0.5 rounded font-mono font-bold">Risco 03</span>
+                    <h3 class="text-sm font-bold text-white mt-2"><i class="fa-solid fa-people-line text-gold-400 mr-1"></i> Fila Gigante & Lentidão</h3>
+                    <p class="text-[11px] text-slate-400 mt-1">Gargalo na montagem faz visitantes desistirem da compra.</p>
+                </div>
+                <span class="text-[11px] text-gold-400 font-semibold inline-flex items-center gap-1">Ver Contingência <i class="fa-solid fa-chevron-right text-[9px]"></i></span>
+            </div>
+
+            <!-- Scenario 4 -->
+            <div onclick="showContingency(4)" class="glass-card p-5 rounded-2xl cursor-pointer hover:border-gold-500 transition space-y-3 flex flex-col justify-between">
+                <div>
+                    <span class="text-xs bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded font-mono font-bold">Risco 04</span>
+                    <h3 class="text-sm font-bold text-white mt-2"><i class="fa-solid fa-cloud-rain text-emerald-400 mr-1"></i> Sobra de Estoque às 11h45</h3>
+                    <p class="text-[11px] text-slate-400 mt-1">Sobra excessiva de itens nos últimos 15 minutos de feira.</p>
+                </div>
+                <span class="text-[11px] text-gold-400 font-semibold inline-flex items-center gap-1">Ver Contingência <i class="fa-solid fa-chevron-right text-[9px]"></i></span>
+            </div>
+        </div>
+
+        <!-- Contingency Detail Box -->
+        <div id="contingency-box" class="mt-6 bg-navy-800 border border-gold-500/40 p-5 rounded-2xl space-y-2">
+            <h4 id="contingency-title" class="font-bold text-gold-400 text-sm"><i class="fa-solid fa-shield-halved mr-2"></i> Plano de Contingência Selecionado</h4>
+            <p id="contingency-desc" class="text-xs text-slate-300 leading-relaxed">Clique em um dos 4 riscos acima para visualizar o protocolo de reação imediata do CFO VIVA.</p>
+        </div>
+    </section>
+
+    <!-- MODULE 5: PRACTICAL CFO AUDIT LAB (15 MIN) -->
+    <section id="desafio" class="py-16 px-4 max-w-6xl mx-auto scroll-mt-20 border-t border-slate-800">
+        <div class="mb-8 text-center">
+            <span class="bg-gold-500 text-navy-950 font-black text-xs px-3.5 py-1.5 rounded-full uppercase tracking-widest mb-2 inline-block shadow-md">
+                <i class="fa-solid fa-laptop-code mr-1"></i> Atividade Prática de 15 Minutos
+            </span>
+            <h2 class="text-2xl md:text-4xl font-extrabold text-white">Laboratório de Auditoria do CFO</h2>
+            <p class="text-slate-400 mt-2 max-w-2xl mx-auto text-sm">
+                Sua equipe de diretoria foi convocada para auditar o plano financeiro do estande <strong>"Alemanha - Oktoberfest & Pretzel Gourmet"</strong>.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            <!-- Case Study Specs -->
+            <div class="lg:col-span-5 bg-navy-800 p-6 rounded-2xl border border-slate-700 space-y-4 shadow-xl">
+                <div class="flex items-center space-x-3 border-b border-slate-700 pb-3">
+                    <span class="text-3xl">🥨</span>
+                    <div>
+                        <h3 class="font-bold text-white text-base">Estande: Alemanha Pretzel Gourmet</h3>
+                        <p class="text-xs text-gold-400">Projeto da Festa das Nações - 9º Ano</p>
+                    </div>
+                </div>
+
+                <div class="space-y-2 text-xs text-slate-300 leading-relaxed">
+                    <p class="font-bold text-white">📊 Dados do Projeto Auditado:</p>
+                    <ul class="space-y-2 list-none font-mono">
+                        <li class="bg-navy-950 p-2.5 rounded-lg border border-slate-800 flex justify-between">
+                            <span>Custos Fixos Totais (CF):</span>
+                            <strong class="text-gold-400">R$ 350,00</strong>
+                        </li>
+                        <li class="bg-navy-950 p-2.5 rounded-lg border border-slate-800 flex justify-between">
+                            <span>Preço de Venda Praticado (P):</span>
+                            <strong class="text-emerald-400">R$ 15,00 / un.</strong>
+                        </li>
+                        <li class="bg-navy-950 p-2.5 rounded-lg border border-slate-800 flex justify-between">
+                            <span>Custo Base Insumos:</span>
+                            <strong class="text-slate-400">R$ 5,00 / un.</strong>
+                        </li>
+                        <li class="bg-navy-950 p-2.5 rounded-lg border border-slate-800 flex justify-between">
+                            <span>Custos Invisíveis (Taxa + Refugo):</span>
+                            <strong class="text-rose-400">+ R$ 1,50 / un.</strong>
+                        </li>
+                        <li class="bg-navy-950 p-2.5 rounded-lg border border-slate-800 flex justify-between">
+                            <span>Custo Variável Total Real (CV):</span>
+                            <strong class="text-rose-400">R$ 6,50 / un.</strong>
+                        </li>
+                        <li class="bg-navy-950 p-2.5 rounded-lg border border-slate-800 flex justify-between">
+                            <span>Lucro Meta Desejado da Sala:</span>
+                            <strong class="text-gold-400">R$ 425,00</strong>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Student Audit Form -->
+            <div class="lg:col-span-7 bg-navy-800 p-6 rounded-2xl border border-gold-500/30 shadow-2xl space-y-6">
+                <h3 class="text-lg font-bold text-white border-b border-slate-700 pb-3 flex justify-between items-center">
+                    <span><i class="fa-solid fa-file-signature text-gold-500 mr-2"></i> Relatório do CFO (Cálculos da Equipe)</span>
+                    <span class="text-xs text-slate-400">Preencha os dados</span>
+                </h3>
+
+                <form id="cfo-audit-form" onsubmit="event.preventDefault(); validateCfoAudit();" class="space-y-4 text-xs">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block font-semibold text-slate-300 mb-1">1. Margem de Contribuição Ajustada (R$):</label>
+                            <input type="number" id="cfo-mc" placeholder="Ex: 8.50" step="0.10" required class="w-full bg-navy-950 border border-slate-700 rounded-xl px-3 py-2 font-mono text-white focus:outline-none focus:border-gold-500">
+                        </div>
+
+                        <div>
+                            <label class="block font-semibold text-slate-300 mb-1">2. Break-Even para Zero a Zero (Unid.):</label>
+                            <input type="number" id="cfo-be" placeholder="Ex: 42" required class="w-full bg-navy-950 border border-slate-700 rounded-xl px-3 py-2 font-mono text-white focus:outline-none focus:border-gold-500">
+                        </div>
+
+                        <div class="sm:col-span-2">
+                            <label class="block font-semibold text-slate-300 mb-1">3. Vendas Necessárias para Atingir o Lucro Meta de R$ 425,00 (Unid.):</label>
+                            <input type="number" id="cfo-target-sales" placeholder="Ex: 91" required class="w-full bg-navy-950 border border-slate-700 rounded-xl px-3 py-2 font-mono text-white focus:outline-none focus:border-gold-500">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block font-semibold text-slate-300 mb-1">Plano de Contingência (Se chover e o movimento cair às 11h15):</label>
+                        <select id="cfo-risk-action" required class="w-full bg-navy-950 border border-slate-700 rounded-xl px-3 py-2.5 text-white focus:outline-none focus:border-gold-500">
+                            <option value="">Selecione a ação do CFO...</option>
+                            <option value="combo">Ativar Combo Especial "Pretzel + Bebida" com desconto para acelerar a rotação.</option>
+                            <option value="desistir">Fechar o estande imediatamente e aceitar o prejuízo.</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="w-full bg-gold-500 hover:bg-gold-600 text-navy-950 font-black py-3 rounded-xl shadow-lg transition flex items-center justify-center space-x-2">
+                        <i class="fa-solid fa-stamp"></i>
+                        <span>Validar Auditoria do CFO VIVA</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Audit Certificate Box -->
+        <div id="cfo-certificate-box" class="hidden mt-8 glass-card-gold p-6 rounded-2xl border border-gold-500 text-center space-y-4 animate-fade-in">
+            <div class="inline-block bg-gold-500 text-navy-950 p-3.5 rounded-full text-2xl font-black mb-1">
+                <i class="fa-solid fa-award"></i>
+            </div>
+            <h3 class="text-2xl font-black text-gold-400">Certificado de Gestão Financeira Corporativa — CFO VIVA 9º Ano</h3>
+            <p class="text-xs text-slate-200 max-w-xl mx-auto">
+                Parabéns, Diretoria Financeira! Todos os números da operação <strong>"Alemanha - Pretzel Gourmet"</strong> foram auditados com precisão técnica irretocável.
+            </p>
+
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-2xl mx-auto text-xs font-mono text-slate-300 my-4">
+                <div class="bg-navy-950 p-2.5 rounded-lg border border-gold-500/30">
+                    <span class="block text-[10px] text-slate-500">MC Ajustada</span>
+                    <strong class="text-emerald-400">R$ 8,50</strong>
+                </div>
+                <div class="bg-navy-950 p-2.5 rounded-lg border border-gold-500/30">
+                    <span class="block text-[10px] text-slate-500">Zero a Zero</span>
+                    <strong class="text-gold-400">42 Unid.</strong>
+                </div>
+                <div class="bg-navy-950 p-2.5 rounded-lg border border-gold-500/30">
+                    <span class="block text-[10px] text-slate-500">Vendas Lucro Meta</span>
+                    <strong class="text-gold-400">91 Unid.</strong>
+                </div>
+                <div class="bg-navy-950 p-2.5 rounded-lg border border-gold-500/30">
+                    <span class="block text-[10px] text-slate-500">Status Operação</span>
+                    <strong class="text-emerald-400">Blindada / Aprovada</strong>
+                </div>
+            </div>
+
+            <p class="text-xs text-gold-400 italic font-semibold">"Projeto corporativo aprovado com gestão de riscos ativada!"</p>
+        </div>
+    </section>
+
+    <!-- MODULE 6: GAMIFIED QUIZ -->
+    <section id="quiz" class="py-16 px-4 max-w-4xl mx-auto scroll-mt-20 border-t border-slate-800">
+        <div class="mb-8 text-center">
+            <span class="text-gold-500 font-bold text-sm tracking-wider uppercase"><i class="fa-solid fa-gamepad mr-1"></i> Avaliação Final</span>
+            <h2 class="text-2xl md:text-3xl font-extrabold text-white mt-1">Quiz de Consolidação do CFO</h2>
+            <p class="text-slate-400 text-xs mt-1">Validação rápida de conceitos para fechamento da aula de 50 minutos.</p>
+        </div>
+
+        <div id="9th-quiz-container" class="bg-navy-800 border border-slate-700 p-6 rounded-2xl shadow-2xl space-y-6">
+            <!-- Q1 -->
+            <div class="quiz-9th-step space-y-3" data-step="1">
+                <span class="text-xs text-gold-400 font-bold uppercase">Pergunta 1 de 4</span>
+                <h4 class="text-sm md:text-base font-bold text-white">Qual das opções é considerada um "Custo Invisível" em um estande?</h4>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                    <button onclick="check9thQuiz(1, 'a', this)" class="quiz-9th-opt p-3 bg-navy-950 hover:bg-navy-700 border border-slate-700 rounded-xl text-left transition text-slate-200">
+                        A) O valor do aluguel do espaço físico principal.
+                    </button>
+                    <button onclick="check9thQuiz(1, 'b', this)" class="quiz-9th-opt p-3 bg-navy-950 hover:bg-navy-700 border border-slate-700 rounded-xl text-left transition text-slate-200">
+                        B) Taxa de maquininha de cartão e refugo de embalagens. ✅
+                    </button>
+                </div>
+            </div>
+
+            <!-- Q2 -->
+            <div class="quiz-9th-step space-y-3 hidden" data-step="2">
+                <span class="text-xs text-gold-400 font-bold uppercase">Pergunta 2 de 4</span>
+                <h4 class="text-sm md:text-base font-bold text-white">Como é calculado o volume de vendas para atingir o Lucro Meta?</h4>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                    <button onclick="check9thQuiz(2, 'a', this)" class="quiz-9th-opt p-3 bg-navy-950 hover:bg-navy-700 border border-slate-700 rounded-xl text-left transition text-slate-200">
+                        A) (Custos Fixos + Lucro Meta) ÷ Margem de Contribuição. ✅
+                    </button>
+                    <button onclick="check9thQuiz(2, 'b', this)" class="quiz-9th-opt p-3 bg-navy-950 hover:bg-navy-700 border border-slate-700 rounded-xl text-left transition text-slate-200">
+                        B) Preço de Venda x Número Total de Estudantes.
+                    </button>
+                </div>
+            </div>
+
+            <!-- Q3 -->
+            <div class="quiz-9th-step space-y-3 hidden" data-step="3">
+                <span class="text-xs text-gold-400 font-bold uppercase">Pergunta 3 de 4</span>
+                <h4 class="text-sm md:text-base font-bold text-white">Por que o horário das 10h30 às 11h30 é crítico na projeção de caixa?</h4>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                    <button onclick="check9thQuiz(3, 'a', this)" class="quiz-9th-opt p-3 bg-navy-950 hover:bg-navy-700 border border-slate-700 rounded-xl text-left transition text-slate-200">
+                        A) Porque representa o pico de movimento e maior fluxo de entrada. ✅
+                    </button>
+                    <button onclick="check9thQuiz(3, 'b', this)" class="quiz-9th-opt p-3 bg-navy-950 hover:bg-navy-700 border border-slate-700 rounded-xl text-left transition text-slate-200">
+                        B) Porque é o momento em que o estande deve fechar para almoço.
+                    </button>
+                </div>
+            </div>
+
+            <!-- Q4 -->
+            <div class="quiz-9th-step space-y-3 hidden" data-step="4">
+                <span class="text-xs text-gold-400 font-bold uppercase">Pergunta 4 de 4</span>
+                <h4 class="text-sm md:text-base font-bold text-white">Qual o objetivo principal de elaborar uma Matriz de Riscos antes do evento?</h4>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                    <button onclick="check9thQuiz(4, 'a', this)" class="quiz-9th-opt p-3 bg-navy-950 hover:bg-navy-700 border border-slate-700 rounded-xl text-left transition text-slate-200">
+                        A) Definir planos de contingência imediatos para imprevistos. ✅
+                    </button>
+                    <button onclick="check9thQuiz(4, 'b', this)" class="quiz-9th-opt p-3 bg-navy-950 hover:bg-navy-700 border border-slate-700 rounded-xl text-left transition text-slate-200">
+                        B) Aumentar o custo fixo do estande desnecessariamente.
+                    </button>
+                </div>
+            </div>
+
+            <!-- Quiz Result -->
+            <div id="quiz-9th-result" class="hidden text-center space-y-3 py-4">
+                <div class="text-3xl text-gold-400"><i class="fa-solid fa-trophy"></i></div>
+                <h4 class="text-lg font-bold text-white">Parabéns! Quiz do CFO (9º Ano) Concluído!</h4>
+                <p class="text-xs text-slate-300">Você demonstrou alto domínio sobre Gestão Financeira Corporativa e Riscos!</p>
+                <button onclick="reset9thQuiz()" class="text-xs bg-gold-500 text-navy-950 font-bold px-4 py-2 rounded-lg transition">
+                    Refazer Quiz
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-navy-950 border-t border-slate-800 py-8 px-4 text-center text-xs text-slate-500">
+        <p class="mb-2"><strong>Ciclo VIVA - Gestão Financeira Corporativa & CFO 9º Ano</strong></p>
+        <p>Desenvolvido para apoio pedagógico do Ensino Fundamental II | Festa das Nações 2026</p>
+    </footer>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // ----------------------------------------------------
+        // 1. TIMER LOGIC
+        // ----------------------------------------------------
+        let timeLeft = 50 * 60;
+        let timerInterval = null;
+        let isTimerRunning = false;
+
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            document.getElementById('timer-display').textContent = 
+                `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        }
+
+        function toggleTimer() {
+            const icon = document.getElementById('timer-icon');
+            if (isTimerRunning) {
+                clearInterval(timerInterval);
+                isTimerRunning = false;
+                icon.className = 'fa-solid fa-play';
+            } else {
+                timerInterval = setInterval(() => {
+                    if (timeLeft > 0) {
+                        timeLeft--;
+                        updateTimerDisplay();
+                    } else {
+                        clearInterval(timerInterval);
+                        alert("Tempo da aula de 50 minutos encerrado!");
+                    }
+                }, 1000);
+                isTimerRunning = true;
+                icon.className = 'fa-solid fa-pause';
+            }
+        }
+
+        // ----------------------------------------------------
+        // 2. INVISIBLE COSTS CALCULATOR
+        // ----------------------------------------------------
+        function runInvisibleCostCalc() {
+            const baseCost = parseFloat(document.getElementById('calc-base-cost').value) || 0;
+            const cardRate = parseFloat(document.getElementById('calc-card-rate').value) || 0;
+            const wasteRate = parseFloat(document.getElementById('calc-waste-rate').value) || 0;
+            const packaging = parseFloat(document.getElementById('calc-extra-packaging').value) || 0;
+
+            const cardVal = baseCost * (cardRate / 100);
+            const wasteVal = baseCost * (wasteRate / 100);
+            const invisibleTotal = cardVal + wasteVal + packaging;
+            const realCost = baseCost + invisibleTotal;
+
+            document.getElementById('disp-base-cost').textContent = `R$ ${baseCost.toFixed(2)}`;
+            document.getElementById('disp-invisible-val').textContent = `+ R$ ${invisibleTotal.toFixed(2)}`;
+            document.getElementById('disp-real-cost').textContent = `R$ ${realCost.toFixed(2)}`;
+        }
+
+        // ----------------------------------------------------
+        // 3. TARGET PROFIT SIMULATOR
+        // ----------------------------------------------------
+        function runTargetProfitCalc() {
+            const cf = parseFloat(document.getElementById('sld-cf').value);
+            const price = parseFloat(document.getElementById('sld-price').value);
+            const cv = parseFloat(document.getElementById('sld-cv').value);
+            const targetProfit = parseFloat(document.getElementById('sld-target-profit').value);
+
+            document.getElementById('lbl-cf').textContent = `R$ ${cf.toFixed(2)}`;
+            document.getElementById('lbl-price').textContent = `R$ ${price.toFixed(2)}`;
+            document.getElementById('lbl-cv').textContent = `R$ ${cv.toFixed(2)}`;
+            document.getElementById('lbl-target-profit').textContent = `R$ ${targetProfit.toFixed(2)}`;
+
+            const mc = price - cv;
+
+            if (mc <= 0) {
+                document.getElementById('sim-mc-val').textContent = "Inviável";
+                document.getElementById('sim-be-units').textContent = "N/A";
+                document.getElementById('sim-target-units').textContent = "N/A";
+                return;
+            }
+
+            const beUnits = Math.ceil(cf / mc);
+            const targetUnits = Math.ceil((cf + targetProfit) / mc);
+
+            document.getElementById('sim-mc-val').textContent = `R$ ${mc.toFixed(2)}`;
+            document.getElementById('sim-be-units').textContent = `${beUnits} unid.`;
+            document.getElementById('sim-target-units').textContent = `${targetUnits} unid.`;
+        }
+
+        // ----------------------------------------------------
+        // 4. CASH FLOW TRANSACTIONS
+        // ----------------------------------------------------
+        const corpTransactions = [
+            { time: '10h00', desc: 'Fundo de Troco Inicial (Caixa)', type: 'in', amount: 100 },
+            { time: '10h15', desc: 'Pagamento de Guardanapos Extras', type: 'out', amount: 30 },
+            { time: '10h45', desc: 'Pico de Vendas 1 (20 porções)', type: 'in', amount: 300 },
+            { time: '11h15', desc: 'Pico de Vendas 2 (15 porções)', type: 'in', amount: 225 },
+            { time: '11h45', desc: 'Queima de Estoque Final (5 porções)', type: 'in', amount: 55 }
+        ];
+
+        function renderCorpCashFlow() {
+            const tbody = document.getElementById('corp-cashflow-tbody');
+            tbody.innerHTML = '';
+            let balance = 0;
+
+            corpTransactions.forEach(t => {
+                if (t.type === 'in') balance += t.amount;
+                else balance -= t.amount;
+
+                const tr = document.createElement('tr');
+                tr.className = 'hover:bg-navy-900/40';
+                tr.innerHTML = `
+                    <td class="py-2 px-2 font-mono text-slate-400">${t.time}</td>
+                    <td class="py-2 px-2">${t.desc}</td>
+                    <td class="py-2 px-2">
+                        <span class="px-2 py-0.5 rounded text-[10px] font-bold ${t.type === 'in' ? 'bg-emerald-500/20 text-emerald-400' : 'bg-rose-500/20 text-rose-400'}">
+                            ${t.type === 'in' ? 'Entrada' : 'Saída'}
+                        </span>
+                    </td>
+                    <td class="py-2 px-2 text-right font-mono font-bold ${t.type === 'in' ? 'text-emerald-400' : 'text-rose-400'}">
+                        ${t.type === 'in' ? '+' : '-'} R$ ${t.amount.toFixed(2)}
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            document.getElementById('corp-cashflow-balance').textContent = `R$ ${balance >= 0 ? '+' : ''}${balance.toFixed(2)}`;
+        }
+
+        function addCorporateTransaction() {
+            const time = prompt("Horário da operação (ex: 11h20):", "11h20");
+            if (!time) return;
+            const desc = prompt("Histórico do lançamento:");
+            if (!desc) return;
+            const amount = parseFloat(prompt("Valor em R$:"));
+            if (isNaN(amount) || amount <= 0) return;
+            const type = confirm("Pressione OK para ENTRADA de dinheiro ou CANCELAR para SAÍDA") ? 'in' : 'out';
+
+            corpTransactions.push({ time, desc, type, amount });
+            renderCorpCashFlow();
+        }
+
+        // ----------------------------------------------------
+        // 5. CONTINGENCY DETAILS
+        // ----------------------------------------------------
+        const contingencyPlans = {
+            1: {
+                title: "Risco 01: Maquininha / Wi-Fi Fora do Ar",
+                desc: "Protocolo CFO: 1. Migrar imediatamente para o roteador 4G/5G de contingência do líder da equipe. 2. Direcionar clientes para o PIX estático via placa com QR Code impresso e validação de comprovante na tela."
+            },
+            2: {
+                title: "Risco 02: Falta de Insumo no Pico (11h)",
+                desc: "Protocolo CFO: 1. Acionar o comprador reserva com o fundo de giro para compra de emergência no mercado mais próximo. 2. Oferecer 'Pré-venda com desconto' de 5 minutos para os clientes na fila até o insumo chegar."
+            },
+            3: {
+                title: "Risco 03: Fila Gigante & Lentidão",
+                desc: "Protocolo CFO: 1. Dividir a equipe: destacar 1 aluno para pré-atendimento com cardápio na fila. 2. Reorganizar a bancada criando linha de montagem estilo 'Fast Track' (um só embala, um só cobra)."
+            },
+            4: {
+                title: "Risco 04: Sobra de Estoque às 11h45",
+                desc: "Protocolo CFO: 1. Ativar a 'Oferta Relâmpago de Encerramento' (ex: Combo 2 por 1 ou desconto de 30%). 2. Destacar 2 promotores com anúncios de viva-voz no pátio para zerar o estoque em 15 minutos."
+            }
+        };
+
+        function showContingency(id) {
+            const plan = contingencyPlans[id];
+            if (plan) {
+                document.getElementById('contingency-title').innerHTML = `<i class="fa-solid fa-shield-halved mr-2"></i> ${plan.title}`;
+                document.getElementById('contingency-desc').textContent = plan.desc;
+            }
+        }
+
+        // ----------------------------------------------------
+        // 6. CFO AUDIT VALIDATION
+        // ----------------------------------------------------
+        function validateCfoAudit() {
+            const mc = parseFloat(document.getElementById('cfo-mc').value);
+            const be = parseFloat(document.getElementById('cfo-be').value);
+            const targetSales = parseFloat(document.getElementById('cfo-target-sales').value);
+            const action = document.getElementById('cfo-risk-action').value;
+
+            // Correct Solutions for Germany Pretzel:
+            // MC = 15.00 - 6.50 = R$ 8.50
+            // Break-Even = 350 / 8.50 = 41.17 -> 42 unidades
+            // Target Sales = (350 + 425) / 8.50 = 775 / 8.50 = 91.17 -> 92 ou 91 unidades
+            
+            const isMcCorrect = Math.abs(mc - 8.50) < 0.1;
+            const isBeCorrect = be === 42 || be === 41;
+            const isTargetCorrect = targetSales === 91 || targetSales === 92;
+            const isActionCorrect = action === 'combo';
+
+            if (isMcCorrect && isBeCorrect && isTargetCorrect && isActionCorrect) {
+                document.getElementById('cfo-certificate-box').classList.remove('hidden');
+                document.getElementById('cfo-certificate-box').scrollIntoView({ behavior: 'smooth' });
+            } else {
+                alert("Verifique os cálculos da auditoria do CFO!\n\nDicas:\n- MC Ajustada = 15,00 - 6,50\n- Zero a Zero = 350 / 8,50\n- Lucro Meta = (350 + 425) / 8,50\n- Ação de Risco = Ativar Combo Especial");
+            }
+        }
+
+        // ----------------------------------------------------
+        // 7. GAMIFIED QUIZ
+        // ----------------------------------------------------
+        const correctAnswers9th = { 1: 'b', 2: 'a', 3: 'a', 4: 'a' };
+
+        function check9thQuiz(step, choice, btn) {
+            const isCorrect = choice === correctAnswers9th[step];
+            const currentStepEl = document.querySelector(`.quiz-9th-step[data-step="${step}"]`);
+
+            if (isCorrect) {
+                btn.classList.replace('bg-navy-950', 'bg-emerald-500/20');
+                btn.classList.add('border-emerald-500', 'text-emerald-400');
+                
+                setTimeout(() => {
+                    currentStepEl.classList.add('hidden');
+                    if (step < 4) {
+                        document.querySelector(`.quiz-9th-step[data-step="${step + 1}"]`).classList.remove('hidden');
+                    } else {
+                        document.getElementById('quiz-9th-result').classList.remove('hidden');
+                    }
+                }, 800);
+            } else {
+                btn.classList.replace('bg-navy-950', 'bg-rose-500/20');
+                btn.classList.add('border-rose-500', 'text-rose-400');
+            }
+        }
+
+        function reset9thQuiz() {
+            document.getElementById('quiz-9th-result').classList.add('hidden');
+            document.querySelectorAll('.quiz-9th-step').forEach((el, index) => {
+                if (index === 0) el.classList.remove('hidden');
+                else el.classList.add('hidden');
+            });
+            document.querySelectorAll('.quiz-9th-opt').forEach(btn => {
+                btn.className = 'quiz-9th-opt p-3 bg-navy-950 hover:bg-navy-700 border border-slate-700 rounded-xl text-left transition text-slate-200';
+            });
+        }
+
+        // INIT ON PAGE LOAD
+        window.onload = function() {
+            updateTimerDisplay();
+            runInvisibleCostCalc();
+            runTargetProfitCalc();
+            renderCorpCashFlow();
+        };
+    </script>
+</body>
+</html>
